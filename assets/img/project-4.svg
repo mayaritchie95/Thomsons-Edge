@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1250" viewBox="0 0 1000 1250">
+<rect width="1000" height="1250" fill="#DDD3C4"/>
+<rect x="0" y="975" width="1000" height="275" fill="#DDD3C4"/>
+<!-- vanity -->
+<rect x="80" y="625" width="400" height="350" fill="#4A4038"/>
+<rect x="80" y="587" width="400" height="37" fill="#FAF8F3"/>
+<!-- mirror -->
+<rect x="140" y="175" width="280" height="350" fill="#F2EDE4" opacity="0.55"/>
+<rect x="140" y="175" width="280" height="350" fill="none" stroke="#9C7A4B" stroke-width="3"/>
+<!-- freestanding tub -->
+<rect x="560" y="687" width="340" height="250" rx="125" fill="#2B2420"/>
+<!-- tall panel -->
+<rect x="620" y="125" width="260" height="500" fill="#4A4038" opacity="0.6"/>
+<circle cx="280" cy="775" r="25" fill="#9C7A4B"/>
+</svg>

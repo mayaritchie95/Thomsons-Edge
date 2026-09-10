@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500">
+<rect width="1200" height="1500" fill="#FAF8F3"/>
+<!-- floor -->
+<rect x="0" y="1080" width="1200" height="420" fill="#C8BBA6"/>
+<!-- lower cabinets -->
+<rect x="0" y="825" width="1200" height="255" fill="#4A4038"/>
+<!-- counter -->
+<rect x="0" y="780" width="1200" height="45" fill="#FAF8F3"/>
+<!-- island -->
+<rect x="336" y="900" width="528" height="330" fill="#2B2420"/>
+<rect x="336" y="862" width="528" height="45" fill="#FAF8F3"/>
+<!-- upper cabinets -->
+<rect x="60" y="180" width="300" height="330" fill="#4A4038"/>
+<rect x="840" y="180" width="300" height="330" fill="#4A4038"/>
+<!-- window / backsplash -->
+<rect x="408" y="210" width="384" height="450" fill="#B9A98E" opacity="0.5"/>
+<!-- pendant lights -->
+<line x1="504" y1="0" x2="504" y2="450" stroke="#2B2420" stroke-width="2"/>
+<circle cx="504" cy="480" r="45" fill="#9C7A4B"/>
+<line x1="696" y1="0" x2="696" y2="450" stroke="#2B2420" stroke-width="2"/>
+<circle cx="696" cy="480" r="45" fill="#9C7A4B"/>
+</svg>
