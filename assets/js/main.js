@@ -172,6 +172,26 @@
     }
   }
 
+  // FAQ accordion
+  var faqItems = document.querySelectorAll(".faq__item");
+  faqItems.forEach(function (item) {
+    var btn = item.querySelector(".faq__q");
+    var panel = item.querySelector(".faq__a");
+    if (!btn || !panel) return;
+    btn.addEventListener("click", function () {
+      var isOpen = item.getAttribute("aria-expanded") === "true";
+      if (isOpen) {
+        item.setAttribute("aria-expanded", "false");
+        btn.setAttribute("aria-expanded", "false");
+        panel.style.maxHeight = null;
+      } else {
+        item.setAttribute("aria-expanded", "true");
+        btn.setAttribute("aria-expanded", "true");
+        panel.style.maxHeight = panel.scrollHeight + "px";
+      }
+    });
+  });
+
   // Footer year
   var y = document.getElementById("year");
   if (y) y.textContent = new Date().getFullYear();
