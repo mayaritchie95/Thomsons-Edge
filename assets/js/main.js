@@ -48,13 +48,23 @@
     reveals.forEach(function (el) { el.classList.add("in"); });
   }
 
-  // Contact form (front-end validation + mailto fallback)
+  // Contact form: posts to a form endpoint when configured, else falls back to mailto.
   var form = document.getElementById("contact-form");
   if (form) {
     var status = form.querySelector(".form-status");
+    var submitBtn = form.querySelector("button[type=submit]");
+
     form.addEventListener("submit", function (ev) {
       ev.preventDefault();
       var data = new FormData(form);
+
+      // Honeypot: if a bot filled the hidden "company" field, silently drop it.
+      if ((data.get("company") || "").toString().trim() !== "") {
+        setStatus("Thank you — your enquiry has been sent.", "ok");
+        form.reset();
+        return;
+      }
+
       var name = (data.get("name") || "").toString().trim();
       var email = (data.get("email") || "").toString().trim();
       if (!name || !email) {
@@ -65,7 +75,10 @@
         setStatus("That email address doesn't look quite right.", "err");
         return;
       }
-      // Build a structured email to the studio inboxes
+
+      var endpoint = (form.getAttribute("data-endpoint") || "").trim();
+
+      // Build a plain-text version used for the mailto fallback / readability.
       var lines = [
         "New enquiry from thomsonsedge.com",
         "----------------------------------",
@@ -81,19 +94,76 @@
         (data.get("message") || "")
       ];
       var subject = "Website enquiry — " + name;
-      var body = encodeURIComponent(lines.join("\n"));
+
+      if (endpoint) {
+        // Submit in the background via Formspree-style JSON endpoint.
+        var url = /^https?:\/\//.test(endpoint)
+          ? endpoint
+          : "https://formspree.io/f/" + endpoint;
+
+        data.append("_subject", subject);
+        data.delete("company"); // don't forward the honeypot
+
+        setBusy(true);
+        setStatus("Sending your enquiry…", "");
+
+        fetch(url, {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" }
+        })
+          .then(function (res) {
+            if (res.ok) {
+              setStatus(
+                "Thank you, " + name.split(" ")[0] +
+                  ". Your enquiry is on its way — we'll be in touch shortly.",
+                "ok"
+              );
+              form.reset();
+            } else {
+              return res.json().then(function () {
+                throw new Error("bad status");
+              });
+            }
+          })
+          .catch(function () {
+            // Network / endpoint error → fall back to mailto so nothing is lost.
+            openMailto(subject, lines);
+            setStatus(
+              "We couldn't send that automatically, so your email app is opening instead. " +
+                "Or email info@thomsonsedge.com directly.",
+              "err"
+            );
+          })
+          .finally(function () {
+            setBusy(false);
+          });
+      } else {
+        // No endpoint configured yet → open the visitor's email app.
+        openMailto(subject, lines);
+        setStatus(
+          "Thank you, " + name.split(" ")[0] +
+            ". Your email app is opening so you can send this to our team. " +
+            "Prefer to skip it? Email info@thomsonsedge.com directly.",
+          "ok"
+        );
+      }
+    });
+
+    function openMailto(subject, lines) {
       var mailto =
         "mailto:info@thomsonsedge.com?cc=sarah@thomsonsedge.com&subject=" +
         encodeURIComponent(subject) +
         "&body=" +
-        body;
-      setStatus(
-        "Thank you, " + name.split(" ")[0] +
-        ". Your email app is opening so you can send this to our team. Prefer to skip it? Email info@thomsonsedge.com directly.",
-        "ok"
-      );
+        encodeURIComponent(lines.join("\n"));
       window.location.href = mailto;
-    });
+    }
+
+    function setBusy(on) {
+      if (!submitBtn) return;
+      submitBtn.disabled = on;
+      submitBtn.textContent = on ? "Sending…" : "Send Enquiry";
+    }
 
     function setStatus(msg, type) {
       if (!status) return;

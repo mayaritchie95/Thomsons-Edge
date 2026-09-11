@@ -1,0 +1,14 @@
+{
+  "name": "Thomson's Edge — Kitchen & Bath Design",
+  "short_name": "Thomson's Edge",
+  "description": "Family-owned kitchen and bathroom design and renovation studio serving Ottawa and surrounding areas.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF9F5",
+  "theme_color": "#231A18",
+  "icons": [
+    { "src": "/assets/img/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/favicon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
