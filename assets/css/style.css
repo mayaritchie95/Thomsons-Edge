@@ -335,7 +335,7 @@ textarea{resize:vertical;min-height:130px;}
   .nav{position:fixed;inset:0 0 0 auto;width:min(80vw,340px);background:var(--espresso);flex-direction:column;justify-content:center;align-items:flex-start;gap:1.8rem;padding:3rem 2.5rem;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);}
   .nav.open{transform:translateX(0);}
   .nav a{color:var(--offwhite);font-size:1rem;}
-  .nav .btn{border-color:var(--offwhite);}
+  .nav .btn{border-color:var(--offwhite);padding:.9em 1.3em;letter-spacing:.12em;font-size:.72rem;white-space:normal;text-align:center;align-self:stretch;}
   .nav-toggle{display:flex;z-index:110;}
   .split{grid-template-columns:1fr;}
   .services{grid-template-columns:1fr;}
